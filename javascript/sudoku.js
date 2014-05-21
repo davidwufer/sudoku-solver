@@ -17,10 +17,33 @@ function solve(board) {
 var cell_values = {
 }
 
-var board_operations = {
-  dimension: function() { return 9; }
-  get: function(row, col) {
-    // TODO: Determine how row/col is laid out
+
+// TODO: Pull out to separate file
+function Board(board_string) {
+  this.board = to_int_array(board_string)
+}
+
+Board.prototype.to_int_array(board_string) = function() {
+
+};
+
+// TODO: Pull above out to separate file
+
+var board_fns = {
+  dimension: function() { return 9; },
+
+  get: function(board, row, col) {
+    // The board is going to be organized
+    // using row-column ordering.
+    board.charAt((row * dimension()) + col)
+  },
+
+  to_int_array(board_str) {
+
+  },
+
+  to_str(board_as_int_array) {
+
   }
 }
 
