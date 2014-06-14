@@ -4,6 +4,7 @@ GEM
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
+    diff-lcs (1.2.5)
     ffi (1.9.3)
     formatador (0.2.5)
     guard (2.6.1)
@@ -38,6 +39,18 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    rspec (3.0.0)
+      rspec-core (~> 3.0.0)
+      rspec-expectations (~> 3.0.0)
+      rspec-mocks (~> 3.0.0)
+    rspec-core (3.0.1)
+      rspec-support (~> 3.0.0)
+    rspec-expectations (3.0.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.0.0)
+    rspec-mocks (3.0.1)
+      rspec-support (~> 3.0.0)
+    rspec-support (3.0.0)
     slop (3.5.0)
     source_map (3.0.1)
       json
@@ -58,3 +71,4 @@ DEPENDENCIES
   guard-rake
   opal
   opal-jquery
+  rspec
