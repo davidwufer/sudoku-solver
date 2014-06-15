@@ -13441,7 +13441,7 @@ if (a == null) a = nil;
 (function($opal) {
   var $a, $b, TMP_1, $c, self = $opal.top, $scope = $opal, nil = $opal.nil, $breaker = $opal.breaker, $slice = $opal.slice, $hash2 = $opal.hash2, $klass = $opal.klass;
 
-  $opal.add_stubs(['$ready?', '$find', '$on', '$value', '$first', '$solve', '$new', '$text', '$[]', '$new_board', '$private']);
+  $opal.add_stubs(['$ready?', '$find', '$on', '$value', '$first', '$solve', '$new', '$text', '$to_s', '$attr_reader', '$[]', '$set', '$create_board', '$*', '$board_internal', '$[]=', '$join', '$private', '$map', '$split', '$scan']);
   ;
   ;
   ;
@@ -13452,27 +13452,30 @@ if (a == null) a = nil;
 
     input_board = (($a = $scope.Element) == null ? $opal.cm('Element') : $a).$find("input").$first().$value();
       solved_board = (($a = $scope.Solver) == null ? $opal.cm('Solver') : $a).$new($hash2(["board_string"], {"board_string": input_board})).$solve();
-      return (($a = $scope.Element) == null ? $opal.cm('Element') : $a).$find(".js-solved-board").$text(solved_board);}, TMP_2._s = self, TMP_2), $a).call($b, "click");}, TMP_1._s = self, TMP_1), $a).call($b);
+      return (($a = $scope.Element) == null ? $opal.cm('Element') : $a).$find(".js-solved-board").$text(solved_board.$to_s());}, TMP_2._s = self, TMP_2), $a).call($b, "click");}, TMP_1._s = self, TMP_1), $a).call($b);
   (function($base, $super) {
     function $Solver(){};
     var self = $Solver = $klass($base, $super, 'Solver', $Solver);
 
     var def = self._proto, $scope = self._scope;
 
-    def.board_string = nil;
+    self.$attr_reader("board");
+
     def.$initialize = function(options) {
-      var self = this;
+      var $a, self = this;
 
       if (options == null) {
         options = $hash2([], {})
       }
-      return self.board_string = options['$[]']("board_string");
+      return self.board = (($a = $scope.Board) == null ? $opal.cm('Board') : $a).$new($hash2(["board_string"], {"board_string": options['$[]']("board_string")}));
     };
 
     return (def.$solve = function() {
-      var self = this;
+      var $a, self = this, board = nil;
 
-      return self.board_string;
+      board = (($a = $scope.Board) == null ? $opal.cm('Board') : $a).$new();
+      board.$set(0, 0, "1");
+      return board;
     }, nil) && 'solve';
   })(self, null);
   return (function($base, $super) {
@@ -13481,26 +13484,44 @@ if (a == null) a = nil;
 
     var def = self._proto, $scope = self._scope;
 
+    self.$attr_reader("board_internal");
+
     def.$initialize = function(options) {
       var $a, self = this;
 
       if (options == null) {
         options = $hash2([], {})
       }
-      return self.board = ((($a = options['$[]']("board")) !== false && $a !== nil) ? $a : self.$new_board());
+      return self.board_internal = self.$create_board(((($a = options['$[]']("board_string")) !== false && $a !== nil) ? $a : "-"['$*'](81)));
+    };
+
+    def.$get = function(row, col) {
+      var self = this;
+
+      return self.$board_internal()['$[]'](row)['$[]'](col);
+    };
+
+    def.$set = function(row, col, piece) {
+      var self = this;
+
+      return self.$board_internal()['$[]'](row)['$[]='](col, piece);
+    };
+
+    def.$to_s = function() {
+      var self = this;
+
+      return self.$board_internal().$join();
     };
 
     self.$private();
 
-    return (def.$new_board = function() {
-      var $a, $b, TMP_3, $c, self = this;
+    return (def.$create_board = function(board_string) {
+      var $a, $b, TMP_3, self = this;
 
-      return ($a = ($b = (($c = $scope.Array) == null ? $opal.cm('Array') : $c)).$new, $a._p = (TMP_3 = function(){var self = TMP_3._s || this, $a, $b, TMP_4, $c;
-
-      return ($a = ($b = (($c = $scope.Array) == null ? $opal.cm('Array') : $c)).$new, $a._p = (TMP_4 = function(){var self = TMP_4._s || this;
-
-        return "-"}, TMP_4._s = self, TMP_4), $a).call($b, 9)}, TMP_3._s = self, TMP_3), $a).call($b, 9);
-    }, nil) && 'new_board';
+      return ($a = ($b = board_string.$scan(/.{9}/)).$map, $a._p = (TMP_3 = function(row){var self = TMP_3._s || this;
+if (row == null) row = nil;
+      return row.$split("")}, TMP_3._s = self, TMP_3), $a).call($b);
+    }, nil) && 'create_board';
   })(self, null);
 })(Opal);
 
