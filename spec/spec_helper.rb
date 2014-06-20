@@ -1,7 +1,7 @@
 # require File.expand_path('../../app/sudoku', __FILE__)
-$:<< File.expand_path('../../app/logic')
+$:<< File.expand_path('../../app/board')
 
-require File.expand_path('app/logic.rb')
+require File.expand_path('app/board.rb')
 
 RSpec.configure do |config|
   # Limit the spec run to only specs with the focus metadata. If no specs have

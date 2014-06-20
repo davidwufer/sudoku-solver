@@ -1,7 +1,7 @@
 require "opal"
 require "jquery"
 require "opal-jquery"
-require "logic"
+require "board"
 
 Document.ready? do
   button = Element.find("button")
