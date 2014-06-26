@@ -13441,7 +13441,7 @@ if (a == null) a = nil;
 (function($opal) {
   var $a, self = $opal.top, $scope = $opal, nil = $opal.nil, $breaker = $opal.breaker, $slice = $opal.slice, $klass = $opal.klass, $hash2 = $opal.hash2, $range = $opal.range;
 
-  $opal.add_stubs(['$attr_reader', '$new', '$[]', '$set', '$create_board', '$*', '$board_internal', '$!', '$legitimate_move?', '$raise', '$[]=', '$join', '$private', '$map', '$==', '$options', '$split', '$scan', '$to_proc', '$size', '$possible_values', '$delete', '$solved?', '$first']);
+  $opal.add_stubs(['$attr_reader', '$new', '$[]', '$set', '$create_board', '$*', '$board_cells', '$!', '$legitimate_move?', '$raise', '$[]=', '$join', '$all?', '$spots_all_filled?', '$rows_all_distinct?', '$columns_all_distinct?', '$quadrants_all_distinct?', '$private', '$map', '$==', '$options', '$split', '$scan', '$to_proc', '$size', '$possible_values', '$delete_if', '$include?', '$solved?', '$first']);
   ;
   (function($base, $super) {
     function $Solver(){};
@@ -13482,7 +13482,7 @@ if (a == null) a = nil;
 
     var def = self._proto, $scope = self._scope;
 
-    self.$attr_reader("board_internal");
+    self.$attr_reader("board_cells");
 
     def.$initialize = function(options) {
       var $a, self = this;
@@ -13490,13 +13490,13 @@ if (a == null) a = nil;
       if (options == null) {
         options = $hash2([], {})
       }
-      return self.board_internal = self.$create_board(((($a = options['$[]']("board_string")) !== false && $a !== nil) ? $a : "-"['$*'](81)));
+      return self.board_cells = self.$create_board(((($a = options['$[]']("board_string")) !== false && $a !== nil) ? $a : "-"['$*'](81)));
     };
 
     def.$get = function(row, col) {
       var self = this;
 
-      return self.$board_internal()['$[]'](row)['$[]'](col);
+      return self.$board_cells()['$[]'](row)['$[]'](col);
     };
 
     def.$set = function(row, col, piece, check_legitimacy) {
@@ -13507,13 +13507,13 @@ if (a == null) a = nil;
       }
       if ((($a = (($b = check_legitimacy !== false && check_legitimacy !== nil) ? self['$legitimate_move?'](row, col, piece)['$!']() : $b)) !== nil && (!$a._isBoolean || $a == true))) {
         self.$raise((($a = $scope.InvalidMoveError) == null ? $opal.cm('InvalidMoveError') : $a).$new())};
-      return self.$board_internal()['$[]'](row)['$[]='](col, piece);
+      return self.$board_cells()['$[]'](row)['$[]='](col, piece);
     };
 
     def.$to_s = function() {
       var self = this;
 
-      return self.$board_internal().$join();
+      return self.$board_cells().$join();
     };
 
     def['$legitimate_move?'] = function(row, col, piece) {
@@ -13522,7 +13522,37 @@ if (a == null) a = nil;
       return true;
     };
 
+    def['$solved?'] = function() {
+      var self = this;
+
+      return [self['$spots_all_filled?'](), self['$rows_all_distinct?'](), self['$columns_all_distinct?'](), self['$quadrants_all_distinct?']()]['$all?']();
+    };
+
     self.$private();
+
+    def['$spots_all_filled?'] = function() {
+      var self = this;
+
+      return nil;
+    };
+
+    def['$rows_all_distinct?'] = function() {
+      var self = this;
+
+      return nil;
+    };
+
+    def['$columns_all_distinct?'] = function() {
+      var self = this;
+
+      return nil;
+    };
+
+    def['$quadrants_all_distinct?'] = function() {
+      var self = this;
+
+      return nil;
+    };
 
     return (def.$create_board = function(board_string) {
       var $a, $b, TMP_1, self = this;
@@ -13561,10 +13591,12 @@ if (cell_string == null) cell_string = nil;
       return self.$possible_values().$size()['$=='](1);
     };
 
-    def.$eliminate_possible_value = function(value) {
-      var self = this;
+    def.$eliminate_possible_values = function(values) {
+      var $a, $b, TMP_3, self = this;
 
-      return self.$possible_values().$delete(value);
+      return ($a = ($b = self.$possible_values()).$delete_if, $a._p = (TMP_3 = function(v){var self = TMP_3._s || this;
+if (v == null) v = nil;
+      return values['$include?'](v)}, TMP_3._s = self, TMP_3), $a).call($b);
     };
 
     return (def.$to_s = function() {

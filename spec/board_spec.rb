@@ -15,4 +15,10 @@ describe "Board" do
       expect(board.get(1, 1)).to eq('9')
     end
   end
+
+  describe "solved?" do
+    it "is solved when all the cells have values and each row, column, and quadrant has distinct values" do
+        
+    end
+  end
 end
