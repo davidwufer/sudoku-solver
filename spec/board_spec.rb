@@ -18,7 +18,8 @@ describe "Board" do
 
   describe "solved?" do
     it "is solved when all the cells have values and each row, column, and quadrant has distinct values" do
-        
+      board = Board.new(board_string: '693725814782164539145893726238956147579412683461378295817539462356241978924687351')
+      expect(board.solved?).to be true
     end
   end
 end

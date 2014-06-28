@@ -1,4 +1,5 @@
 require "opal"
+require 'pry-debugger'
 
 class Solver
   attr_reader :board
@@ -18,25 +19,30 @@ end
 class InvalidMoveError < ArgumentError; end;
 
 class Board
-  attr_reader :board_cells
+  attr_reader :board_rows
+
 
   def initialize(options={})
-    @board_cells = create_board(options[:board_string] || '-' * 81)
+    @board_rows = create_board(options[:board_string] || '-' * 81)
+
   end
 
   def get(row, col)
-    board_cells[row][col]
+    board_rows[row][col]
+
   end
 
   def set(row, col, piece, check_legitimacy=true)
     if check_legitimacy && !legitimate_move?(row, col, piece)
       raise InvalidMoveError.new
     end
-    board_cells[row][col] = piece
+    board_rows[row][col] = piece
+
   end
 
   def to_s
-    board_cells.join
+    board_rows.join
+
   end
 
   def legitimate_move?(row, col, piece)
@@ -52,16 +58,19 @@ class Board
 
   private
     def spots_all_filled?
-
+      board_rows.all? { |row| row.all? {|col| col.solved? } }
     end
 
     def rows_all_distinct?
+      true
     end
 
     def columns_all_distinct?
+      true
     end
 
     def quadrants_all_distinct?
+      true
     end
 
     def create_board(board_string)
@@ -70,7 +79,7 @@ class Board
           if cell_string == "-"
             BoardCell.new
           else
-            BoardCell.new(options[possible_values: cell_string])
+            BoardCell.new(possible_values: [cell_string])
           end
         end
       end
