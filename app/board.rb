@@ -62,14 +62,21 @@ class Board
     end
 
     def rows_all_distinct?
-      true
+      board_rows.all? { |row| row.uniq.count == 9 }
     end
 
     def columns_all_distinct?
-      true
+      board_rows.transpose.all? { |col| col.uniq.count == 9 }
     end
 
     def quadrants_all_distinct?
+      board_rows.each_slice(3) do |rows|
+        rows.transpose.each_slice(3) do |quadrant|
+          if quadrant.flatten.uniq.count != 9
+            return false
+          end
+        end
+      end
       true
     end
 
