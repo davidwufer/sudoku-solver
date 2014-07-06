@@ -1,5 +1,5 @@
 require "opal"
-require 'pry-debugger'
+# require 'pry-debugger'
 
 class Solver
   attr_reader :board
